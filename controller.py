@@ -44,6 +44,45 @@ class SpellChecker:
             case _:
                 return None
 
+    #devo definire una funzione che gestisca l'evento quando premo il bottone
+    def handleSpellCheck(self, e):
+        txtCurrentSentence = self._view._txtInInput.value
+        if txtCurrentSentence == "":
+            self._view._txtOut.controls.clear()
+            self._view._txtOut.controls.append(
+                ft.Text(value="Inserisci una frase!")
+            )
+            return
+
+        language = self._view._dropLingua.value
+        print(language)
+        modality = self._view._dropMetodo.value
+        print(modality)
+
+        if language == "":
+            self._view._txtOut.controls.clear()
+            self._view._txtOut.controls.append(
+                ft.Text(value="Seleziona una lingua!")
+            )
+            return
+
+        if modality == "":
+            self._view._txtOut.controls.clear()
+            self._view._txtOut.controls.append(
+                ft.Text(value="Inserisci un metodo di ricerca!")
+            )
+            return
+
+        #il metodo handle restituisce le parole + il tempo trascorso
+        parole, elapsedTime = self.handleSentence(txtCurrentSentence, language, modality)
+        #devo poi inserirlo nella grafica
+
+        self._view._txtOut.controls.clear()
+        self._view._txtOut.controls.append(ft.Text("Frase inserita: " + txtCurrentSentence))
+        self._view._txtOut.controls.append(ft.Text("Parole errate: " + parole))
+        self._view._txtOut.controls.append(ft.Text("Tempo richiesto alla ricerca: " + str(elapsedTime) + "s"))
+
+        self._view.update()
 
     def printMenu(self):
         print("______________________________\n" +

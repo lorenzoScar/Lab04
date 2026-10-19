@@ -27,15 +27,44 @@ class View(object):
         )
 
         # Add your stuff here
+        self._dropLingua = ft.Dropdown(
+            label="Seleziona lingua",
+            hint_text="Scegli una lingua",
+            options=[
+                ft.dropdown.Option("englsih"),
+                ft.dropdown.Option("italian"),
+                ft.dropdown.Option("spanish"),
+            ]
+        )
+        self._row1 = ft.Row(controls=[self._dropLingua])
 
-        # self.page.add([])
+        self._dropMetodo = ft.Dropdown(
+            label="Scegli metodo",
+            hint_text="Scegli un metodo",
+            options=[
+                ft.dropdown.Option("Default"),
+                ft.dropdown.Option("Linear"),
+                ft.dropdown.Option("Dichotomic")
+            ]
+        )
 
+        self._txtInInput = ft.TextField(label="Inserisci testo")
+
+        self._btnSpellCheck = ft.ElevatedButton(text = "Spell Check",
+                                           on_click=self.__controller.handleSpellCheck)
+
+        self._row2 = ft.Row(controls=[self._dropMetodo, self._txtInInput, self._btnSpellCheck])
+
+        self._txtOut = ft.ListView(expand=1, spacing=10)
+        self.page.add(self._row1, self._row2, self._txtOut)
         self.page.update()
 
     def update(self):
         self.page.update()
+
     def setController(self, controller):
         self.__controller = controller
+
     def theme_changed(self, e):
         """Function that changes the color theme of the app, when the corresponding
         switch is triggered"""
